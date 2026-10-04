@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0c111a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Atlas MTGA" />
+  <title>Atlas MTGA Companion</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="appShell">
+    <header class="app-header">
+      <div class="brand-row">
+        <div class="atlas-mark">A</div>
+        <div class="brand-copy">
+          <div class="brand-title">Atlas MTGA Companion</div>
+          <div class="brand-sub">collection intelligence • private on-device data</div>
+        </div>
+        <button id="profileButton" class="profile-pill" type="button" aria-label="Choose collection owner">
+          <span id="profileInitial">E</span>
+          <span id="profileNameTop">Erin</span>
+          <span class="chev">⌄</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="content">
+      <section id="view-home" class="view active" data-view="home">
+        <div class="hero-card">
+          <div>
+            <div class="eyebrow">CURRENT PROFILE</div>
+            <h1 id="homeProfileName">Erin</h1>
+            <p id="homeSyncText">No collection imported yet.</p>
+          </div>
+          <button id="homeRefreshBtn" class="primary-btn" type="button">Refresh from iCloud</button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-value" id="statPrintings">—</div><div class="stat-label">Printings</div></div>
+          <div class="stat-card"><div class="stat-value" id="statCopies">—</div><div class="stat-label">Owned Copies</div></div>
+          <div class="stat-card"><div class="stat-value" id="statSets">—</div><div class="stat-label">Sets</div></div>
+          <div class="stat-card"><div class="stat-value" id="statDecks">0</div><div class="stat-label">Decks</div></div>
+        </div>
+
+        <section class="panel">
+          <div class="section-head">
+            <div><div class="eyebrow">WILDCARDS</div><h2>Crafting Bank</h2></div>
+            <button id="editWildcardsBtn" class="text-btn" type="button">Edit</button>
+          </div>
+          <div class="wildcard-row">
+            <div class="wildcard common"><span class="wc-count" id="wcCommon">—</span><span>Common</span></div>
+            <div class="wildcard uncommon"><span class="wc-count" id="wcUncommon">—</span><span>Uncommon</span></div>
+            <div class="wildcard rare"><span class="wc-count" id="wcRare">—</span><span>Rare</span></div>
+            <div class="wildcard mythic"><span class="wc-count" id="wcMythic">—</span><span>Mythic</span></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-head"><div><div class="eyebrow">LATEST</div><h2>Collection Changes</h2></div><button class="text-btn" data-nav="changes" type="button">View all</button></div>
+          <div id="homeChanges" class="empty-state">Import the latest change report from iCloud to see new cards here.</div>
+        </section>
+
+        <section class="panel">
+          <div class="section-head"><div><div class="eyebrow">DECKS</div><h2>Deck Library</h2></div><button class="text-btn" data-nav="decks" type="button">Open</button></div>
+          <div id="homeDecks" class="deck-mini-list"></div>
+        </section>
+      </section>
+
+      <section id="view-collection" class="view" data-view="collection">
+        <div class="page-head"><div><div class="eyebrow">COLLECTION</div><h1 id="collectionTitle">Erin's Cards</h1></div><button id="collectionRefreshBtn" class="small-primary" type="button">Refresh</button></div>
+        <div class="search-row">
+          <input id="collectionSearch" type="search" placeholder="Search cards or sets" autocomplete="off" />
+          <select id="setFilter" aria-label="Filter by set"><option value="">All sets</option></select>
+        </div>
+        <div id="collectionSummary" class="inline-summary">No collection loaded.</div>
+        <div id="collectionList" class="card-list"></div>
+      </section>
+
+      <section id="view-changes" class="view" data-view="changes">
+        <div class="page-head"><div><div class="eyebrow">RECENT</div><h1>Collection Changes</h1></div><button id="changesRefreshBtn" class="small-primary" type="button">Import</button></div>
+        <div id="changesSummary" class="inline-summary">No change report loaded.</div>
+        <div id="changesList" class="changes-list"></div>
+      </section>
+
+      <section id="view-decks" class="view" data-view="decks">
+        <div class="page-head"><div><div class="eyebrow">DECKS</div><h1 id="deckTitle">Erin's Decks</h1></div><button id="addDeckBtn" class="small-primary" type="button">+ Add</button></div>
+        <div id="deckList" class="deck-list"></div>
+      </section>
+
+      <section id="view-settings" class="view" data-view="settings">
+        <div class="page-head"><div><div class="eyebrow">ATLAS</div><h1>Settings</h1></div></div>
+
+        <section class="panel">
+          <div class="section-head"><div><div class="eyebrow">PROFILE</div><h2>Collection Owner</h2></div></div>
+          <div class="settings-row"><span>Current profile</span><button id="settingsProfileBtn" class="setting-button" type="button">Erin ▾</button></div>
+          <div class="settings-row"><span>Add another player</span><button id="addProfileBtn" class="setting-button" type="button">+ Add Profile</button></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-head"><div><div class="eyebrow">ICLOUD</div><h2>Refresh Collection</h2></div></div>
+          <p class="muted">Choose the files created by Atlas Extractor in <strong id="icloudHint">iCloud Drive → Atlas MTGA → Erin</strong>.</p>
+          <button id="settingsRefreshBtn" class="primary-btn wide" type="button">Choose Synced Files</button>
+          <input id="syncFileInput" type="file" accept=".csv,.json,text/csv,application/json" multiple hidden />
+          <div class="privacy-note">Files are read in your browser and saved on this device. Atlas Companion v1.0 does not upload your collection to a server.</div>
+        </section>
+
+        <section class="panel">
+          <div class="section-head"><div><div class="eyebrow">DATA</div><h2>Local Storage</h2></div></div>
+          <div class="settings-row"><span>Export Atlas backup</span><button id="exportBackupBtn" class="setting-button" type="button">Export</button></div>
+          <div class="settings-row danger-row"><span>Clear current profile data</span><button id="clearProfileBtn" class="setting-button danger" type="button">Clear</button></div>
+        </section>
+
+        <section class="about-card">
+          <div class="atlas-mark small">A</div>
+          <div><strong>Atlas MTGA Companion v1.0.0</strong><div class="muted">Built for Erin & Kaliyah. Installable PWA for iPhone.</div></div>
+        </section>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn active" data-nav="home" type="button"><span class="nav-icon">⌂</span><span>Home</span></button>
+      <button class="nav-btn" data-nav="collection" type="button"><span class="nav-icon">▦</span><span>Collection</span></button>
+      <button class="nav-btn" data-nav="changes" type="button"><span class="nav-icon">↗</span><span>Changes</span></button>
+      <button class="nav-btn" data-nav="decks" type="button"><span class="nav-icon">◆</span><span>Decks</span></button>
+      <button class="nav-btn" data-nav="settings" type="button"><span class="nav-icon">⚙</span><span>Settings</span></button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="profileSheet" class="sheet-backdrop hidden" aria-hidden="true">
+    <div class="sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-title">Choose Collection Owner</div>
+      <div id="profileChoices" class="profile-choices"></div>
+      <button id="sheetAddProfile" class="secondary-btn wide" type="button">+ Add Profile</button>
+      <button class="sheet-cancel" data-close-sheet="profileSheet" type="button">Cancel</button>
+    </div>
+  </div>
+
+  <div id="wildcardModal" class="modal-backdrop hidden" aria-hidden="true">
+    <div class="modal-card">
+      <h2>Update Wildcards</h2>
+      <div class="field-grid">
+        <label>Common<input id="editCommon" type="number" min="0" inputmode="numeric" /></label>
+        <label>Uncommon<input id="editUncommon" type="number" min="0" inputmode="numeric" /></label>
+        <label>Rare<input id="editRare" type="number" min="0" inputmode="numeric" /></label>
+        <label>Mythic<input id="editMythic" type="number" min="0" inputmode="numeric" /></label>
+      </div>
+      <div class="modal-actions"><button class="secondary-btn" data-close-modal="wildcardModal" type="button">Cancel</button><button id="saveWildcardsBtn" class="primary-btn" type="button">Save</button></div>
+    </div>
+  </div>
+
+  <div id="deckModal" class="modal-backdrop hidden" aria-hidden="true">
+    <div class="modal-card deck-modal-card">
+      <h2 id="deckModalTitle">Add Deck</h2>
+      <label class="full-field">Deck name<input id="deckNameInput" type="text" placeholder="Deck name" /></label>
+      <label class="full-field">Arena deck list<textarea id="deckListInput" rows="11" placeholder="Deck\n4 Card Name (SET) 123\n..."></textarea></label>
+      <input id="editingDeckId" type="hidden" />
+      <div class="modal-actions"><button class="secondary-btn" data-close-modal="deckModal" type="button">Cancel</button><button id="saveDeckBtn" class="primary-btn" type="button">Save Deck</button></div>
+    </div>
+  </div>
+
+  <div id="deckDetailSheet" class="sheet-backdrop hidden" aria-hidden="true">
+    <div class="sheet tall-sheet">
+      <div class="sheet-handle"></div>
+      <div class="section-head"><div><div class="eyebrow">DECK</div><h2 id="deckDetailName">Deck</h2></div><span id="deckDetailCount" class="count-badge"></span></div>
+      <pre id="deckDetailText" class="deck-text"></pre>
+      <div class="sheet-actions"><button id="copyDeckBtn" class="secondary-btn" type="button">Copy List</button><button id="editDeckBtn" class="secondary-btn" type="button">Edit</button><button id="deleteDeckBtn" class="danger-btn" type="button">Delete</button></div>
+      <button class="sheet-cancel" data-close-sheet="deckDetailSheet" type="button">Close</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
